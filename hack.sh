@@ -18,12 +18,12 @@ composer require fof/secure-https
 
 
 # 用戶端語言識別
-wget -qO "vendor/flarum/core/src/Locale/LocaleServiceProvider.php" \
-	"$GITHUB_ROOT/flarum/core/src/Locale/LocaleServiceProvider.php"
+#wget -qO "vendor/flarum/core/src/Locale/LocaleServiceProvider.php" \
+#	"$GITHUB_ROOT/flarum/core/src/Locale/LocaleServiceProvider.php"
 
 # 簡繁自動轉換
-wget -qO "vendor/flarum/core/src/Api/JsonApiResponse.php" \
-	"$GITHUB_ROOT/flarum/core/src/Api/JsonApiResponse.php"
+#wget -qO "vendor/flarum/core/src/Api/JsonApiResponse.php" \
+#	"$GITHUB_ROOT/flarum/core/src/Api/JsonApiResponse.php"
 
 # 允許註冊中文名
 sed -i "s#a-z0-9_-#-_a-z0-9\\\x7f-\\\xff#" \
@@ -40,20 +40,20 @@ sed -i 's#min:3#min:1#' \
 
 # 加大貼文字數
 # ALTER TABLE `posts` CHANGE `content` `content` mediumtext COLLATE 'utf8mb4_unicode_ci' NULL COMMENT ' ' AFTER `type`;
-sed -i 's#65535#2147483647#' \
-  vendor/flarum/core/src/Post/PostValidator.php
+#sed -i 's#65535#2147483647#' \
+#  vendor/flarum/core/src/Post/PostValidator.php
 
 # 不限制管理員灌水
-sed -i -r "s#(isFlooding = )#\1\$actor->id == '1' ? false : #" \
-  vendor/flarum/core/src/Post/Floodgate.php
+#sed -i -r "s#(isFlooding = )#\1\$actor->id == '1' ? false : #" \
+#  vendor/flarum/core/src/Post/Floodgate.php
 
 # 支援 vivaldi:// scheme
-sed -i "/Autoemail/i\\\t\\t\$configurator->urlConfig->allowScheme('vivaldi');" \
-  vendor/s9e/text-formatter/src/Configurator/Bundles/Fatdown.php
-sed -i "/new SchemeList/a\\\t\\t\$this->allowedSchemes[] = 'vivaldi';" \
-	vendor/s9e/text-formatter/src/Configurator/UrlConfig.php
-sed -i 's#ftp|https#ftp|vivaldi|https#g' \
-  vendor/s9e/text-formatter/src/Bundles/Fatdown.php
+#sed -i "/Autoemail/i\\\t\\t\$configurator->urlConfig->allowScheme('vivaldi');" \
+#  vendor/s9e/text-formatter/src/Configurator/Bundles/Fatdown.php
+#sed -i "/new SchemeList/a\\\t\\t\$this->allowedSchemes[] = 'vivaldi';" \
+#	vendor/s9e/text-formatter/src/Configurator/UrlConfig.php
+#sed -i 's#ftp|https#ftp|vivaldi|https#g' \
+#  vendor/s9e/text-formatter/src/Bundles/Fatdown.php
 
 # 顯示發帖人 UA
 # SQL: ALTER TABLE tbl_posts ADD user_agent varchar(255);
